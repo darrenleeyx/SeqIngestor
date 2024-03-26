@@ -1,0 +1,39 @@
+name: CI pipeline
+
+on:
+  workflow_dispatch:
+  #push:
+  #  branches:
+  #    - main
+  #pull_request:
+  #  branches:
+  #    - main
+
+jobs:
+  build:
+    name: Build and Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v1
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '8.0.x'
+          
+      - name: Print directory contents
+        run: ls
+      
+      - name: Restore dependencies
+        run: dotnet restore SeqIngestor.sln
+
+      - name: Build project
+        run: dotnet build SeqIngestor.sln --configuration Release --no-restore
+
+      - name: Run unit tests
+        run: |
+          dotnet test tests/Application.Tests.Unit/Application.Tests.unit.csproj --configuration Release --no-build &&
+          dotnet test tests/Common.Tests.Unit/Common.Tests.unit.csproj --configuration Release --no-build &&
+          dotnet test tests/Contract.Tests.Unit/Contract.Tests.unit.csproj --configuration Release --no-build
