@@ -1,0 +1,27 @@
+name: CI pipeline
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+     runs-on: ubuntu-latest
+     steps:
+       - uses: actions/checkout@v1
+       
+       - name: Setup .NET
+         uses: actions/setup-dotnet@v1
+         with:
+           dotnet-version: '8.0.x'
+           
+       - name: Restore dependencies
+         run: dotnet restore
+
+       - name: Build project
+         run: dotnet build --configuration Release --no-restore
+
+       - name: Run unit tests
+         run: |
+           dotnet test tests/Application.Tests.Unit/Application.Tests.unit.csproj --configuration Release --no-build &&
+           dotnet test tests/Common.Tests.Unit/Common.Tests.unit.csproj --configuration Release --no-build &&
+           dotnet test tests/Contract.Tests.Unit/Contract.Tests.unit.csproj --configuration Release --no-build
