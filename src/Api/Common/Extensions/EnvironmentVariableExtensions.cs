@@ -1,4 +1,6 @@
-﻿namespace Api.Common.Extensions;
+﻿using Api.Common.Models.EnvironmentVariables;
+
+namespace Api.Common.Extensions;
 
 public static class EnvironmentVariableExtensions
 {
