@@ -1,0 +1,37 @@
+version: '3.4'
+
+services:
+  api:
+    image: ${DOCKER_REGISTRY-}api
+    container_name: api
+    build:
+      context: .
+      dockerfile: src/Api/Dockerfile
+    environment:
+      - SEQ_INGESTOR_SEQ_SERVERURL=http://host.docker.internal:5340
+      - SEQ_INGESTOR_SEQ_APIKEY=12345678901234567890
+    ports:
+      - "5000:5000"
+      - "5001:5001"
+  
+  seqcli:
+    image: datalust/seqcli:latest
+    command: apikey create -t newapikey --token 12345678901234567890 -s http://seq
+    depends_on:
+      - seq
+    restart: on-failure
+    networks:
+      - seqnetwork
+
+  seq:
+    image: datalust/seq:latest
+    container_name: seq
+    environment:
+      - ACCEPT_EULA=Y
+    ports:
+      - 5340:80
+    networks:
+      - seqnetwork
+
+networks:
+  seqnetwork:
