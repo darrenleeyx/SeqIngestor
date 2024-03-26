@@ -27,7 +27,7 @@ jobs:
         run: ls
       
       - name: Restore dependencies
-        run: dotnet restore
+        run: dotnet restore SeqIngestor.sln
 
       - name: Build project
         run: dotnet build --configuration Release --no-restore
