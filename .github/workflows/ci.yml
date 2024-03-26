@@ -24,13 +24,14 @@ jobs:
           dotnet-version: '8.0.x'
 
       - name: Restore dependencies
-        run: dotnet restore SeqIngestor.sln
+        run: dotnet restore ./SeqIngestor.sln
 
       - name: Build project
         run: dotnet build --configuration Release --no-restore
 
       - name: Run unit tests
-        run: |
-          dotnet test tests/Application.Tests.Unit/Application.Tests.unit.csproj --configuration Release --no-build &&
-          dotnet test tests/Common.Tests.Unit/Common.Tests.unit.csproj --configuration Release --no-build &&
-          dotnet test tests/Contract.Tests.Unit/Contract.Tests.unit.csproj --configuration Release --no-build
+        run: dotnet test ./SeqIngestor.sln --configuration Release --no-build
+          #|
+          #dotnet test tests/Application.Tests.Unit/Application.Tests.unit.csproj --configuration Release --no-build &&
+          #dotnet test tests/Common.Tests.Unit/Common.Tests.unit.csproj --configuration Release --no-build &&
+          #dotnet test tests/Contract.Tests.Unit/Contract.Tests.unit.csproj --configuration Release --no-build
