@@ -22,9 +22,6 @@ jobs:
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: '8.0.x'
-          
-      - name: Print directory contents
-        run: ls
       
       - name: Restore dependencies
         run: dotnet restore SeqIngestor.sln
