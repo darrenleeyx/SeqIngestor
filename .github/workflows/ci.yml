@@ -34,6 +34,6 @@ jobs:
 
       - name: Run unit tests
         run: |
-          dotnet test tests/Application.Tests.Unit/Application.Tests.unit.csproj --configuration Release --no-build &&
-          dotnet test tests/Common.Tests.Unit/Common.Tests.unit.csproj --configuration Release --no-build &&
-          dotnet test tests/Contract.Tests.Unit/Contract.Tests.unit.csproj --configuration Release --no-build
+          dotnet test tests/Application.Tests.Unit/Application.Tests.Unit.csproj --configuration Release --no-build &&
+          dotnet test tests/Common.Tests.Unit/Common.Tests.Unit.csproj --configuration Release --no-build &&
+          dotnet test tests/Contract.Tests.Unit/Contract.Tests.Unit.csproj --configuration Release --no-build
